@@ -43,3 +43,10 @@ jobs:
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+      - run:
+          name: split test
+          command: |
+            export CIRCLE_INTERNAL_TASK_DATA='.'
+            TESTFILES=$(circleci tests glob "spec/**/*.rb" | circleci tests split --split-by=timings)
+            echo ${TESTFILES}

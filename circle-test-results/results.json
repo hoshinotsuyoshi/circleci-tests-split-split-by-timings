@@ -1,0 +1,70 @@
+{
+  "tests": [
+    {
+      "classname": "spec.foo_2_spec",
+      "file": "spec/foo_2_spec.rb",
+      "name": "Foo2 ",
+      "result": "success",
+      "run_time": 0.2,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
+      "classname": "spec.foo_6_spec",
+      "file": "spec/foo_6_spec.rb",
+      "name": "Foo6 ",
+      "result": "success",
+      "run_time": 0.6,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
+      "classname": "spec.foo_1_spec",
+      "file": "spec/foo_1_spec.rb",
+      "name": "Foo1 ",
+      "result": "success",
+      "run_time": 1.1,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
+      "classname": "spec.foo_4_spec",
+      "file": "spec/foo_4_spec.rb",
+      "name": "Foo4 ",
+      "result": "success",
+      "run_time": 0.4,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
+      "classname": "spec.foo_3_spec",
+      "file": "spec/foo_3_spec.rb",
+      "name": "Foo3 ",
+      "result": "success",
+      "run_time": 0.3,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
+      "classname": "spec.foo_5_spec",
+      "file": "spec/foo_5_spec.rb",
+      "name": "Foo5 ",
+      "result": "success",
+      "run_time": 0.5,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    }
+  ],
+  "files": [
+    "rspec.xml",
+    "rspec.xml",
+    "rspec.xml"
+  ],
+  "exceptions": []
+}
