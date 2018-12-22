@@ -48,5 +48,5 @@ jobs:
           name: split test
           command: |
             export CIRCLE_INTERNAL_TASK_DATA='.'
-            TESTFILES=$(circleci tests glob "spec/**/*.rb" | circleci tests split --split-by=timings)
+            TESTFILES=$(circleci tests glob "spec/**/*.rb" | grep -v 'spec_helper.rb' | circleci tests split --split-by=timings)
             echo ${TESTFILES}
