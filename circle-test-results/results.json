@@ -1,26 +1,6 @@
 {
   "tests": [
     {
-      "classname": "spec.foo_2_spec",
-      "file": "spec/foo_2_spec.rb",
-      "name": "Foo2 ",
-      "result": "success",
-      "run_time": 0.2,
-      "message": null,
-      "source": "rspec",
-      "source_type": "rspec"
-    },
-    {
-      "classname": "spec.foo_6_spec",
-      "file": "spec/foo_6_spec.rb",
-      "name": "Foo6 ",
-      "result": "success",
-      "run_time": 0.6,
-      "message": null,
-      "source": "rspec",
-      "source_type": "rspec"
-    },
-    {
       "classname": "spec.foo_1_spec",
       "file": "spec/foo_1_spec.rb",
       "name": "Foo1 ",
@@ -31,11 +11,11 @@
       "source_type": "rspec"
     },
     {
-      "classname": "spec.foo_4_spec",
-      "file": "spec/foo_4_spec.rb",
-      "name": "Foo4 ",
+      "classname": "spec.foo_2_spec",
+      "file": "spec/foo_2_spec.rb",
+      "name": "Foo2 ",
       "result": "success",
-      "run_time": 0.4,
+      "run_time": 0.2,
       "message": null,
       "source": "rspec",
       "source_type": "rspec"
@@ -51,11 +31,31 @@
       "source_type": "rspec"
     },
     {
+      "classname": "spec.foo_4_spec",
+      "file": "spec/foo_4_spec.rb",
+      "name": "Foo4 ",
+      "result": "success",
+      "run_time": 0.4,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
       "classname": "spec.foo_5_spec",
       "file": "spec/foo_5_spec.rb",
       "name": "Foo5 ",
       "result": "success",
       "run_time": 0.5,
+      "message": null,
+      "source": "rspec",
+      "source_type": "rspec"
+    },
+    {
+      "classname": "spec.foo_6_spec",
+      "file": "spec/foo_6_spec.rb",
+      "name": "Foo6 ",
+      "result": "success",
+      "run_time": 0.6,
       "message": null,
       "source": "rspec",
       "source_type": "rspec"
