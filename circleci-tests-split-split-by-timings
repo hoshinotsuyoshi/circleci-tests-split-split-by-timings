@@ -41,10 +41,13 @@ given_files_sorted = given_files.sort_by { |info| info['run_time'] }.reverse
 
 pods = Array.new(total) { { content: [], total: 0 } }
 
+puts given_files_sorted
+
 given_files_sorted.each do |info|
   smallest = pods.min_by { |pod| pod[:total] }
   smallest[:content] << info['file']
   smallest[:total] += info['run_time']
 end
 
+puts pods
 puts pods[index][:content]
