@@ -7,9 +7,14 @@ jobs:
 
     steps:
       - run:
-          name: ls circle-test-results
+          name: cp circle-test-results
           command: |
-            ls -alF ${CIRCLE_INTERNAL_TASK_DATA}/circle-test-results/results.json || true
+            ls -alF ${CIRCLE_INTERNAL_TASK_DATA}/circle-test-results/results.json || exit
+            cp ${CIRCLE_INTERNAL_TASK_DATA}/circle-test-results/results.json /tmp/results.json
+
+      - store_artifacts:
+          path: /tmp/results.json
+          destination: results.json
 
       - checkout
 
