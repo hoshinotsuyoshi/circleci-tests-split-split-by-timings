@@ -7,7 +7,6 @@ require 'json'
 seconds_array = (1..10).to_a
 
 tests = seconds_array.map { |n| { file: "spec/foo_#{n}_spec.rb", run_time: n.to_f } }
-FileUtils.mkdir('circle-test-results')
 File.write(
   'circle-test-results/results.json',
   JSON.pretty_generate(tests: tests)
@@ -30,6 +29,7 @@ File.write(
 
 puts File.read('circle-test-results/results.json')
 
+seconds_array.each { |n| FileUtils.touch "spec/foo_#{n}_spec.rb" }
 string = seconds_array.map { |n| "spec/foo_#{n}_spec.rb" }.join(' ')
 splitted = `echo #{string} | circleci tests split --split-by=timings`
 
