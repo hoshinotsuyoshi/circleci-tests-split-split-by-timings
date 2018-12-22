@@ -5,7 +5,7 @@
       "file": "spec/foo_1_spec.rb",
       "name": "Foo1 ",
       "result": "success",
-      "run_time": 1.1,
+      "run_time": 1.0,
       "message": null,
       "source": "rspec",
       "source_type": "rspec"
