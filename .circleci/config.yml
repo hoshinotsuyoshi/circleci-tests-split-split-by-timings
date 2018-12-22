@@ -1,0 +1,21 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.3
+    environment:
+      CIRCLE_NODE_TOTAL: "3"
+      CIRCLE_INTERNAL_TASK_DATA: "."
+    steps:
+      - checkout
+
+      - run:
+          name: CIRCLE_NODE_INDEX=0 circleci tests split --split-by=timings
+          command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=0  circleci tests split --split-by=timings
+      - run:
+          name: CIRCLE_NODE_INDEX=1 circleci tests split --split-by=timings
+          command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=1  circleci tests split --split-by=timings
+      - run:
+          name: CIRCLE_NODE_INDEX=2 circleci tests split --split-by=timings
+          command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=2  circleci tests split --split-by=timings
