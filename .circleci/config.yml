@@ -1,0 +1,32 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5.3
+    parallelism: 3
+
+    steps:
+      - run:
+          name: ls circle-test-results
+          command: |
+            ls -alF ${CIRCLE_INTERNAL_TASK_DATA}/circle-test-results/results.json || true
+
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: install dependencies
+          command: bundle check --path vendor/bundle || bundle install --jobs=4 --retry=3 --path vendor/bundle --binstubs=vendor/bundle/bin --clean
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: run tests
+          command: |
+            TESTFILES=$(circleci tests glob "spec/**/*.rb" | circleci tests split --split-by=timings)
+            echo ${TESTFILES}
