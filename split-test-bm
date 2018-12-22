@@ -48,4 +48,5 @@ require 'benchmark'
 Benchmark.bmbm do |x|
   x.report('cat') { 100.times { `cat list` } }
   x.report('cat + split') { 100.times { `cat list | CIRCLE_NODE_INDEX=1 circleci tests split --split-by=timings` } }
+  x.report('cat + custom split') { 100.times { `cat list | CIRCLE_NODE_INDEX=1 ./circleci-tests-split-split-by-timings` } }
 end

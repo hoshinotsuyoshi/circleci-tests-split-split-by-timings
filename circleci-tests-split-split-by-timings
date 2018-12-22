@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# circleci-tests-split-split-by-timings
+
+require 'json'
+require 'pathname'
+
+DELIMITER = "\n"
+
+def index
+  @index ||= ENV.fetch('CIRCLE_NODE_INDEX') { abort '$CIRCLE_NODE_INDEX is not set' }.to_i
+end
+
+def total
+  @total ||= ENV.fetch('CIRCLE_NODE_TOTAL') { abort '$CIRCLE_NODE_TOTAL is not set' }.to_i
+end
+
+def tests
+  dir = ENV.fetch('CIRCLE_INTERNAL_TASK_DATA') { abort '$CIRCLE_INTERNAL_TASK_DATA is not set' }
+  json = Pathname(dir) + 'circle-test-results/results.json'
+  json.exist? || abort("#{json} does not exist")
+  JSON.parse(json.read)['tests']
+  # [
+  #     {
+  #       "file" =>  "1",
+  #       "run_time" => 1.0
+  #     },
+  #     {
+  #       "file" => "2",
+  #       "run_time" => 2.0
+  #     },
+  #     ...
+  # ]
+end
+
+file_names = gets.split(DELIMITER).compact
+
+given_files = tests.select { |info| file_names.include?(info['file']) }
+given_files_sorted = given_files.sort_by { |info| info['run_time'] }.reverse
+
+pods = Array.new(total) { { content: [], total: 0 } }
+
+given_files_sorted.each do |info|
+  smallest = pods.min_by { |pod| pod[:total] }
+  smallest[:content] << info['file']
+  smallest[:total] += info['run_time']
+end
+
+puts pods[index][:content]
