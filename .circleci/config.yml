@@ -9,4 +9,4 @@ jobs:
       CIRCLE_INTERNAL_TASK_DATA: "."
     steps:
       - checkout
-      - run: ./split-test-bm
+      - run: ./split-test

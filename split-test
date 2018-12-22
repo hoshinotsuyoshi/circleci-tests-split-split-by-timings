@@ -44,6 +44,7 @@ generate_results_json(file_name_list)
 File.write('list', file_name_list.map(&:to_s).join("\n"))
 
 (0..2).each do |n|
-  result =  `cat list | CIRCLE_NODE_INDEX=#{n} circleci tests split --split-by=timings`
+  # result =  `cat list | CIRCLE_NODE_INDEX=#{n} circleci tests split --split-by=timings`
+  result =  `cat list | CIRCLE_NODE_INDEX=#{n} ./circleci-tests-split-split-by-timings`
   puts "CIRCLE_NODE_INDEX=#{n}: #{result.split("\n").compact}"
 end
