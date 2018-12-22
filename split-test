@@ -30,7 +30,7 @@ File.write(
 puts File.read('circle-test-results/results.json')
 
 seconds_array.each { |n| FileUtils.touch "spec/foo_#{n}_spec.rb" }
-string = seconds_array.map { |n| "spec/foo_#{n}_spec.rb" }.join(' ')
+string = seconds_array.map { |n| "spec/foo_#{n}_spec.rb" }.join('\\n')
 splitted = `echo #{string} | circleci tests split --split-by=timings`
 
 puts splitted
