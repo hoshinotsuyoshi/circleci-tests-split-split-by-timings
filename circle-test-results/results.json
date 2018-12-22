@@ -2,27 +2,27 @@
   "tests": [
     {
       "file": "spec/foo_1_spec.rb",
-      "run_time": 10.0
+      "run_time": 100.0
     },
     {
       "file": "spec/foo_2_spec.rb",
-      "run_time": 2.0
+      "run_time": 20.0
     },
     {
       "file": "spec/foo_3_spec.rb",
-      "run_time": 3.0
+      "run_time": 30.0
     },
     {
       "file": "spec/foo_4_spec.rb",
-      "run_time": 4.0
+      "run_time": 40.0
     },
     {
       "file": "spec/foo_5_spec.rb",
-      "run_time": 5.0
+      "run_time": 50.0
     },
     {
       "file": "spec/foo_6_spec.rb",
-      "run_time": 6.5
+      "run_time": 60.0
     }
   ]
 }
