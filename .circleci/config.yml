@@ -1,10 +1,12 @@
 version: 2.1
+
 jobs:
   build:
     docker:
       - image: circleci/ruby:2.5.3
-    parallelism: 3
-
+    environment:
+      CIRCLE_NODE_TOTAL: "3"
+      CIRCLE_INTERNAL_TASK_DATA: "."
     steps:
       - checkout
-      - run: CIRCLE_INTERNAL_TASK_DATA='.' ./split-test
+      - run: ./split-test
