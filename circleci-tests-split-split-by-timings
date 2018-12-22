@@ -6,8 +6,6 @@
 require 'json'
 require 'pathname'
 
-DELIMITER = "\n"
-
 def index
   @index ||= ENV.fetch('CIRCLE_NODE_INDEX') { abort '$CIRCLE_NODE_INDEX is not set' }.to_i
 end
@@ -34,14 +32,16 @@ def tests
   # ]
 end
 
-file_names = gets.split(DELIMITER).compact
+file_names = []
+
+while file_name = gets&.chomp
+  file_names << file_name
+end
 
 given_files = tests.select { |info| file_names.include?(info['file']) }
 given_files_sorted = given_files.sort_by { |info| info['run_time'] }.reverse
 
 pods = Array.new(total) { { content: [], total: 0 } }
-
-puts given_files_sorted
 
 given_files_sorted.each do |info|
   smallest = pods.min_by { |pod| pod[:total] }
@@ -49,5 +49,4 @@ given_files_sorted.each do |info|
   smallest[:total] += info['run_time']
 end
 
-puts pods
 puts pods[index][:content]
