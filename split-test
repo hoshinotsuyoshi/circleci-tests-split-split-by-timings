@@ -27,7 +27,17 @@ def generate_results_json(file_name_list)
   )
 end
 
-file_name_list = (1..1000).to_a
+file_name_list = [2, 3, 4, 5, 6, 10]
+
+# result:
+# [10]
+# [6, 3, 2]
+# [5, 4]
+
+# best:
+# [10]
+# [6, 4]
+# [5, 3, 2]
 
 generate_results_json(file_name_list)
 
