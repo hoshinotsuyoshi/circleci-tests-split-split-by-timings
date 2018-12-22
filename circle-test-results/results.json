@@ -24,11 +24,5 @@
       "file": "spec/foo_6_spec.rb",
       "run_time": 6.5
     }
-  ],
-  "files": [
-    "rspec.xml",
-    "rspec.xml",
-    "rspec.xml"
-  ],
-  "exceptions": []
+  ]
 }
