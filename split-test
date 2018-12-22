@@ -3,30 +3,34 @@
 
 require 'json'
 
+def generate_results_json(file_name_list)
+  # This method generates:
+  #
+  # {
+  #   "tests": [
+  #     {
+  #       "file": "1",
+  #       "run_time": 1.0
+  #     },
+  #     {
+  #       "file": "2",
+  #       "run_time": 2.0
+  #     },
+  #     ...
+  #   ]
+  # }
+
+  tests = file_name_list.map { |n| { file: n.to_s, run_time: n.to_f } }
+  File.write(
+    'circle-test-results/results.json',
+    JSON.pretty_generate(tests: tests)
+  )
+end
+
 file_name_list = (1..1000).to_a
 
-tests = file_name_list.map { |n| { file: n.to_s, run_time: n.to_f } }
-File.write(
-  'circle-test-results/results.json',
-  JSON.pretty_generate(tests: tests)
-)
-
-# ./circle-test-results/results.json
-# {
-#   "tests": [
-#     {
-#       "file": "1",
-#       "run_time": 1.0
-#     },
-#     {
-#       "file": "2",
-#       "run_time": 2.0
-#     },
-#     ...
-#   ]
-# }
-
-puts File.read('circle-test-results/results.json')
+generate_results_json(file_name_list)
 
 File.write('list', file_name_list.map(&:to_s).join("\n"))
+
 puts `cat list | circleci tests split --split-by=timings`
