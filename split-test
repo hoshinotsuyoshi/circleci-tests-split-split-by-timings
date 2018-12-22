@@ -3,9 +3,9 @@
 
 require 'json'
 
-seconds_array = (1..10).to_a
+file_name_list = (1..1000).to_a
 
-tests = seconds_array.map { |n| { file: "spec/foo_#{n}_spec.rb", run_time: n.to_f } }
+tests = file_name_list.map { |n| { file: n.to_s, run_time: n.to_f } }
 File.write(
   'circle-test-results/results.json',
   JSON.pretty_generate(tests: tests)
@@ -28,6 +28,5 @@ File.write(
 
 puts File.read('circle-test-results/results.json')
 
-string = seconds_array.map { |n| "spec/foo_#{n}_spec.rb" }.join("\n")
-File.write('list', string)
+File.write('list', file_name_list.map(&:to_s).join("\n"))
 puts `cat list | circleci tests split --split-by=timings`
