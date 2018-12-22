@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'fileutils'
+require 'json'
+
+seconds_array = (1..1000).to_a
+
+tests = seconds_array.map { |n| { file: n.to_s, run_time: n.to_f } }
+FileUtils.mkdir('circle-test-results')
+File.write('circle-test-results/results.json', { tests: tests }.to_json)
+
+# ./circle-test-results/results.json
+# {
+#   "tests": [
+#     {
+#       "file": "1",
+#       "run_time": 1.0
+#     },
+#     {
+#       "file": "2",
+#       "run_time": 2.0
+#     },
+#     ...
+#   ]
+# }
+
+puts File.read('circle-test-results/results.json')
+
+string = seconds_array.join(' ')
+splitted = `echo #{string} | circleci tests split --split-by=timings`
+
+puts splitted
