@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'fileutils'
 require 'json'
 
 seconds_array = (1..10).to_a
@@ -29,7 +28,6 @@ File.write(
 
 puts File.read('circle-test-results/results.json')
 
-seconds_array.each { |n| FileUtils.touch "spec/foo_#{n}_spec.rb" }
 string = seconds_array.map { |n| "spec/foo_#{n}_spec.rb" }.join("\n")
 File.write('list', string)
 puts `cat list | circleci tests split --split-by=timings`
