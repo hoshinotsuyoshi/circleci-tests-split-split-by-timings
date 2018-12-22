@@ -4,11 +4,14 @@
 require 'fileutils'
 require 'json'
 
-seconds_array = (1..1000).to_a
+seconds_array = (1..10).to_a
 
 tests = seconds_array.map { |n| { file: n.to_s, run_time: n.to_f } }
 FileUtils.mkdir('circle-test-results')
-File.write('circle-test-results/results.json', { tests: tests }.to_json)
+File.write(
+  'circle-test-results/results.json',
+  JSON.pretty_generate(tests: tests)
+)
 
 # ./circle-test-results/results.json
 # {
