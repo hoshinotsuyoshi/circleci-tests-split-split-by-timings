@@ -30,3 +30,4 @@ jobs:
           command: |
             TESTFILES=$(circleci tests glob "spec/**/*.rb" | circleci tests split --split-by=timings)
             echo ${TESTFILES}
+            bundle exec rspec -- ${TESTFILES}
