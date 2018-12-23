@@ -14,18 +14,34 @@ def tests
   dir = ENV.fetch('CIRCLE_INTERNAL_TASK_DATA') { abort '$CIRCLE_INTERNAL_TASK_DATA is not set' }
   json = Pathname(dir) + 'circle-test-results/results.json'
   json.exist? || abort("#{json} does not exist")
-  JSON.parse(json.read)['tests']
+  tests = JSON.parse(json.read)['tests']
   # [
   #     {
-  #       "file" =>  "1",
+  #       "file" =>  "spec/1_spec.rb",
   #       "run_time" => 1.0
   #     },
   #     {
-  #       "file" => "2",
+  #       "file" => "spec/2_spec.rb",
   #       "run_time" => 2.0
+  #     },
+  #     {
+  #       "file" => "spec/1_spec.rb",
+  #       "run_time" => 2.5
   #     },
   #     ...
   # ]
+
+  hash = Hash.new(0)
+  tests.each do |t|
+    hash[t['file']] += t['run_time']
+  end
+
+  hash
+  # {
+  #   "spec/1_spec.rb" => 3.5,
+  #   "spec/2_spec.rb" => 2.0,
+  # ...
+  # }
 end
 
 file_names = []
@@ -34,15 +50,19 @@ while file_name = gets&.chomp
   file_names << file_name
 end
 
-given_files = tests.select { |info| file_names.include?(info['file']) }
-given_files_sorted = given_files.sort_by { |info| info['run_time'] }.reverse
+given_files_sorted =
+  tests
+  .slice(*file_names)
+  .sort_by { |_file, run_time| run_time }
+  .reverse
+  .to_h
 
 pods = Array.new(TOTAL) { { content: [], total: 0 } }
 
-given_files_sorted.each do |info|
+given_files_sorted.each do |file, run_time|
   smallest = pods.min_by { |pod| pod[:total] }
-  smallest[:content] << info['file']
-  smallest[:total] += info['run_time']
+  smallest[:content] << file
+  smallest[:total] += run_time
 end
 
 puts pods[INDEX][:content]
