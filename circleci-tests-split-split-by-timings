@@ -10,7 +10,8 @@ INDEX = ENV.fetch('CIRCLE_NODE_INDEX') { abort '$CIRCLE_NODE_INDEX is not set' }
 
 TOTAL = ENV.fetch('CIRCLE_NODE_TOTAL') { abort '$CIRCLE_NODE_TOTAL is not set' }.to_i
 
-def tests
+# タイミングデータのパース
+def timing_data
   dir = ENV.fetch('CIRCLE_INTERNAL_TASK_DATA') { abort '$CIRCLE_INTERNAL_TASK_DATA is not set' }
   json = Pathname(dir) + 'circle-test-results/results.json'
   json.exist? || abort("#{json} does not exist")
@@ -44,25 +45,35 @@ def tests
   # }
 end
 
+# 標準入力(テスト対象ファイルリスト)を配列に入れる
 file_names = []
-
 while file_name = gets&.chomp
   file_names << file_name
 end
 
-given_files_sorted =
-  tests
+# テスト対象ファイルを実行時間が長い順にソート
+sorted =
+  timing_data
   .slice(*file_names)
   .sort_by { |_file, run_time| run_time }
   .reverse
   .to_h
 
-pods = Array.new(TOTAL) { { content: [], total: 0 } }
+# タイミングデータにデータは無いファイルの処置
+missings = (file_names - sorted.keys)
+missings.each do |file_name|
+  sorted[file_name] = 0
+end
 
-given_files_sorted.each do |file, run_time|
+# 貪欲法
+# コンテナの数だけ入れ物を作り実行時間が長い順にファイルを詰めていく
+# トータルの実行時間が一番小さい入れ物にファイルを詰める
+pods = Array.new(TOTAL) { { content: [], total: 0 } }
+sorted.each do |file, run_time|
   smallest = pods.min_by { |pod| pod[:total] }
   smallest[:content] << file
   smallest[:total] += run_time
 end
 
+# 自コンテナが担当すべきファイルリストを出力
 puts pods[INDEX][:content]
