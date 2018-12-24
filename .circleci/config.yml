@@ -19,12 +19,3 @@ jobs:
       - run:
           name: CIRCLE_NODE_INDEX=2 circleci tests split --split-by=timings
           command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=2  circleci tests split --split-by=timings
-      - run:
-          name: CIRCLE_NODE_INDEX=0 ./circleci-tests-split-split-by-timings
-          command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=0 ./circleci-tests-split-split-by-timings
-      - run:
-          name: CIRCLE_NODE_INDEX=1 ./circleci-tests-split-split-by-timings
-          command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=1 ./circleci-tests-split-split-by-timings
-      - run:
-          name: CIRCLE_NODE_INDEX=2 ./circleci-tests-split-split-by-timings
-          command: circleci tests glob "spec/**/*_spec.rb" | CIRCLE_NODE_INDEX=2 ./circleci-tests-split-split-by-timings
